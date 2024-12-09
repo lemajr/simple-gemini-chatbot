@@ -1,17 +1,24 @@
-'use client';
-
-import { useState } from 'react';
+'use client'
+import React, { useEffect, useRef, useState } from 'react';
+import { MdAutorenew } from 'react-icons/md'; 
+import ReactMarkdown from 'react-markdown'; // For rendering Markdown
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<{ user: string; bot?: string }[]>([]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   const handleSend = async () => {
     if (!userInput.trim()) return;
 
     const userMessage = { user: userInput };
-    setMessages((prev) => [...prev, userMessage]);
     setUserInput('');
     setIsLoading(true);
 
@@ -37,9 +44,6 @@ export default function ChatPage() {
     }
   };
 
-
-
-  
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <div className="w-full max-w-2xl p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
@@ -47,16 +51,17 @@ export default function ChatPage() {
         <div className="flex flex-col space-y-4 overflow-y-auto max-h-80">
           {messages.map((msg, idx) => (
             <div key={idx} className="flex flex-col">
-              <div className="bg-blue-500 text-white p-2 rounded-lg self-start">
-                {msg.user}
+              <div className="bg-blue-500 text-white p-2 my-3 rounded-lg self-start">
+                <ReactMarkdown>{msg.user}</ReactMarkdown>
               </div>
               {msg.bot && (
                 <div className="bg-gray-300 text-gray-800 p-2 rounded-lg self-end">
-                  {msg.bot}
+                  <ReactMarkdown>{msg.bot}</ReactMarkdown>
                 </div>
               )}
             </div>
           ))}
+          <div ref={chatEndRef} />
         </div>
         <div className="flex mt-4">
           <input
@@ -68,10 +73,14 @@ export default function ChatPage() {
           />
           <button
             onClick={handleSend}
-            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600"
+            className="flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 disabled:bg-blue-300"
             disabled={isLoading}
           >
-            {isLoading ? 'Sending...' : 'Send'}
+            {isLoading ? (
+              <MdAutorenew className="w-5 h-5 text-white animate-spin" />
+            ) : (
+              'Send'
+            )}
           </button>
         </div>
       </div>
