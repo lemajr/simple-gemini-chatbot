@@ -55,7 +55,7 @@ export default function ChatPage() {
                 <ReactMarkdown>{msg.user}</ReactMarkdown>
               </div>
               {msg.bot && (
-                <div className="bg-gray-300 text-gray-800 p-2 rounded-lg self-end">
+                <div className="bg-gray-300 text-gray-800 p-2 mr-4 rounded-lg self-end">
                   <ReactMarkdown>{msg.bot}</ReactMarkdown>
                 </div>
               )}
