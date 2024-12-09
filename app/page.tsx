@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import { MdAutorenew } from 'react-icons/md'; 
-import ReactMarkdown from 'react-markdown'; // For rendering Markdown
+import { LiaSpinnerSolid } from "react-icons/lia";
+import ReactMarkdown from 'react-markdown'; 
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<{ user: string; bot?: string }[]>([]);
@@ -77,7 +77,7 @@ export default function ChatPage() {
             disabled={isLoading}
           >
             {isLoading ? (
-              <MdAutorenew className="w-5 h-5 text-white animate-spin" />
+              <LiaSpinnerSolid className="w-5 h-5 text-white animate-spin" />
             ) : (
               'Send'
             )}
