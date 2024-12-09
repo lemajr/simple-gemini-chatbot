@@ -46,7 +46,7 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-      <div className="w-full max-w-2xl p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+      <div className="w-full max-w-2xl p-4 lg:dark:bg-gray-800 lg:shadow-lg lg:rounded-lg">
         <h1 className="text-2xl font-bold mb-4">AI Chatbot</h1>
         <div className="flex flex-col space-y-4 overflow-y-auto max-h-80">
           {messages.map((msg, idx) => (
